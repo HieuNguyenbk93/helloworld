@@ -24,9 +24,7 @@
     <modules>
         <module>helloworld-sdk</module>
         <module>helloworld-theme</module>
-        <module>helloworld-socket-plugin</module>
         <module>helloworld-admin-plugin</module>
-        <module>helloworld-socket-app</module>
         <module>helloworld-web-plugin</module>
     </modules>
 
