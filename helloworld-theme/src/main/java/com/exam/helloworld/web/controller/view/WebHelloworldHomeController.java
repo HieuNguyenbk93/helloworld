@@ -7,13 +7,4 @@ import com.tvd12.ezyhttp.server.core.view.View;
 import static org.youngmonkeys.ezyplatform.constant.CommonConstants.VIEW_VARIABLE_PAGE_TITLE;
 
 @Controller
-public class WebHelloworldHomeController {
-
-    @DoGet("/")
-    public View home() {
-        return View.builder()
-            .template("home")
-            .addVariable(VIEW_VARIABLE_PAGE_TITLE, "home")
-            .build();
-    }
-}
+public class WebHelloworldHomeController extends HelloworldHomeController {}

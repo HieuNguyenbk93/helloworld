@@ -10,7 +10,8 @@ import com.tvd12.ezyhttp.server.core.annotation.PropertiesSources;
 })
 @ComponentsScan({
     "org.youngmonkeys.ezyplatform",
-    "com.exam.helloworld"
+    "com.exam.helloworld",
+    "org.youngmonkeys.ezyarticle"
 })
 public class HelloworldThemeStartupTest {
 
