@@ -6,7 +6,7 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{ezytheme}">
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" ng-controller="homeJs">
     <div class="hero">
 
         <div class="container">
@@ -67,7 +67,11 @@
                     </th:block>
                 </div>
 
-                <button class="btn load-more">Load More</button>
+                <div ng-repeat="x in blogs">
+                    <p>{{x.title}}</p>
+                </div>
+
+                <button class="btn load-more" ng-click="loadMore()">Load More</button>
 
             </div>
 
@@ -173,7 +177,26 @@
 
     </div>
 </div>
-<th:block layout:fragment="post-scripts">
-</th:block>
+<script layout:fragment="scripts">
+    app.controller("homeJs", function($scope, $http) {
+        console.log('111');
+        $scope.blogs = [];
+
+        const getApi = function (){
+            return $http({
+                url: '/api/v1/blog',
+                method: 'GET'
+            })
+        }
+
+        $scope.loadMore = async function () {
+            console.log('get api');
+            const result = await getApi();
+            $scope.blogs = result.data.items;
+            console.log($scope.blogs);
+            $scope.$apply();
+        }
+    });
+</script>
 </body>
 </html>
