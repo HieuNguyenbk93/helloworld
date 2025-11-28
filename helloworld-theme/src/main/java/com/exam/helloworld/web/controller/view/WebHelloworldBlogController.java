@@ -30,23 +30,44 @@ public class WebHelloworldBlogController extends BlogController {
     ) {
         this.commonValidator.validatePageSize(limit);
         this.commonValidator.validateSearchKeyword(keyword);
-        TermModel term = this.termValidator.validateSearchTerm(TermType.TAG.toString(), termSlug);
-        DefaultPostFilter.Builder filterBuilder = DefaultPostFilter.builder().termSlug(termSlug);
-        String languageCode = this.languageControllerService.getLanguageCodeOrDefault(request);
+        TermModel term = this.termValidator.validateSearchTerm(
+            TermType.TAG.toString(),
+            termSlug
+        );
+        DefaultPostFilter.Builder filterBuilder = DefaultPostFilter
+            .builder()
+            .termSlug(termSlug);
+        String languageCode = this.languageControllerService
+            .getLanguageCodeOrDefault(request);
         PaginationModel<WebPostContentResponse> pagination = this.postControllerService
             .getPublishedBlogPagination(
                 filterBuilder,
                 sortOrder,
                 languageCode,
-                keyword, nextPageToken, prevPageToken, lastPage, limit);
+                keyword,
+                nextPageToken,
+                prevPageToken,
+                lastPage,
+                limit
+            );
         View.Builder viewBuilder = View.builder()
             .template("blog/list")
             .addVariable("pagination", pagination)
             .addVariable("pageTitle", term.getName())
             .addVariable(
                 "pageFragments",
-                this.pageFragmentManager.getPageFragmentMap("blog_list", languageCode))
-            .putKeyValueToVariable("additionalValueMap", "ratingItemType", "ezyarticle_terms").putKeyValueToVariable("additionalValueMap", "ratingItemId", term.getId());
+                this.pageFragmentManager.getPageFragmentMap("blog_list", languageCode)
+            )
+            .putKeyValueToVariable(
+                "additionalValueMap",
+                "ratingItemType",
+                "ezyarticle_terms"
+            )
+            .putKeyValueToVariable(
+                "additionalValueMap",
+                "ratingItemId",
+                term.getId()
+            );
         this.decorateBlogView(request, viewBuilder);
         return viewBuilder.build();
     }

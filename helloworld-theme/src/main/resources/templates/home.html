@@ -14,13 +14,14 @@
             <div class="left">
 
                 <h1 class="h1">
-                    Hi, I'm <b>Julia&nbsp;Walker</b>.
-                    <br>Web Developer
+                    <th:block th:if="${headingFragments.get('description').title != 'description'}"
+                              th:utext="${headingFragments.get('description').title}">
+                    </th:block>
                 </h1>
-
                 <p class="h3">
-                    Specialized in <abbr title="Accessibility">a11y</abbr>
-                    and Core Web Vitals
+                    <th:block th:if="${headingFragments.get('description').content != 'description'}"
+                              th:utext="${headingFragments.get('description').content}">
+                    </th:block>
                 </p>
 
                 <div class="btn-group">

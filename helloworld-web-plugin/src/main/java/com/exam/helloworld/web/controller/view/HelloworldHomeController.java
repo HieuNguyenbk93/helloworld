@@ -11,6 +11,7 @@ import org.youngmonkeys.ezyarticle.sdk.entity.TermType;
 import org.youngmonkeys.ezyarticle.sdk.pagination.DefaultPostFilter;
 import org.youngmonkeys.ezyarticle.web.controller.service.WebPostControllerService;
 import org.youngmonkeys.ezyarticle.web.controller.service.WebTermControllerService;
+import org.youngmonkeys.ezyarticle.web.manager.WebPageFragmentManager;
 import org.youngmonkeys.ezyarticle.web.response.WebPostItemResponse;
 import org.youngmonkeys.ezyarticle.web.response.WebTermResponse;
 import org.youngmonkeys.ezyplatform.model.PaginationModel;
@@ -25,6 +26,9 @@ import static org.youngmonkeys.ezyplatform.constant.CommonConstants.VIEW_VARIABL
 
 @Setter
 public class HelloworldHomeController {
+
+    @EzyAutoBind
+    private WebPageFragmentManager pageFragmentManager;
 
     @EzyAutoBind
     private WebLanguageControllerService languageControllerService;
@@ -76,11 +80,18 @@ public class HelloworldHomeController {
                         5
                 );
         return View.builder()
-                .template("home")
-                .addVariable("pagination", pagination)
-                .addVariable(VIEW_VARIABLE_PAGE_TITLE, "home_details")
-                .addVariable("topCategories", topCategories)
-                .addVariable("topTags", topTags)
-                .build();
+            .template("home")
+            .addVariable("pagination", pagination)
+            .addVariable(VIEW_VARIABLE_PAGE_TITLE, "home_details")
+            .addVariable("topCategories", topCategories)
+            .addVariable(
+                "headingFragments",
+                pageFragmentManager.getPageFragmentMap(
+                    "main_page_heading",
+                    language
+                )
+            )
+            .addVariable("topTags", topTags)
+            .build();
     }
 }

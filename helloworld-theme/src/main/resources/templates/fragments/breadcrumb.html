@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container" th:fragment="content">
+    <div class="breadcrumb">
+        <h3 class="title" th:utext="${title}"></h3>
+        <th:block th:if="${backUrl != null}">
+            <a class="link" th:href="${backUrl}">
+                <h5>
+                    <i class="fa-solid fa-angles-left"></i>
+                    [[${backText}]]
+                </h5>
+            </a>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>

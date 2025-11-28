@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{ezytheme}">
+<body>
+<div layout:fragment="content" class="page-wrapper">
+    <div class="container">
+        <section class="page-header">
+            <div th:replace="~{fragments/breadcrumb :: content(title=${blog.title}, backText=#{back_to_home}, backUrl='/')}"></div>
+        </section>
+        <section class="page-content page-article">
+            <div class="row">
+                <div class="col-12">
+                    <span>[[#{posted_by}]]: [[${blog.author.name}]]</span>
+                    <span>
+            [[${#strings.toLowerCase(#messages.msg('at'))}]]: <span class="date-time-minute-string">[[${blog.publishedAt}]]</span>
+          </span>
+                </div>
+                <div th:if="${blog.terms.size() > 0}" class="col-12">
+                    <div class="terms-wrapper">
+                        <span>[[#{in}]]:</span>
+                        <div class="terms">
+                            <a th:each="term : ${blog.terms}">
+                                [[${term.name}]]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div th:if="${blog.featuredImage != null}">
+                            <img th:src="${blog.featuredImage.getUrlOrNull()}">
+                        </div>
+                        <div class="col-md-12 article-content" th:utext="${blog.content}"></div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

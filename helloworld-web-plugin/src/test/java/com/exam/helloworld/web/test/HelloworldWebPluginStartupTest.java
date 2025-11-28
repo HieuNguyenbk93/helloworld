@@ -11,7 +11,9 @@ import com.tvd12.ezyhttp.server.core.annotation.PropertiesSources;
 @ComponentsScan({
     "org.youngmonkeys.ezyplatform",
     "com.exam.helloworld",
-    "org.youngmonkeys.ezyarticle"
+    "org.youngmonkeys.ezyarticle",
+    "org.youngmonkeys.ezysupport",
+    "org.youngmonkeys.ezymail"
 })
 public class HelloworldWebPluginStartupTest {
 
