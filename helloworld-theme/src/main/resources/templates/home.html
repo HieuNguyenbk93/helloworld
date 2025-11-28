@@ -90,7 +90,7 @@
                     <h2 class="h2">Topics</h2>
 
                     <a th:each="topCategory : ${topCategories}"
-                       th:href="${'/topic/' + topCategory.slug}"
+                       th:href="${'/blogs/' + topCategory.slug}"
                        class="topic-btn">
                         <div class="icon-box">
                             <img th:if="${topCategory.titleImage != null}"
@@ -106,7 +106,7 @@
 
                     <div class="wrapper">
                         <a th:each="topTag : ${topTags}"
-                           th:href="${'/blogs/tags/' + topTag.slug}"
+                           th:href="${'/blogs/' + topTag.slug}"
                            class="hashtag">
                             #[[${topTag.name}]]
                         </a>
@@ -180,121 +180,9 @@
 
     </div>
 </div>
-<script layout:fragment="scripts" th:inline="javascript">
-/*<![CDATA[*/
- var lastBlogPageToken = {};
- lastBlogPageToken.next = /*[[${pagination.pageToken.next}]]*/ '';
- ezyweb.messages.subscribe_successfully = /*[[#{subscribe_successfully}]]*/;
- /*]]>*/
-
- var onKeydownToSubscribe = function() {
-     if(event.key === 'Enter') {
-         onSubscribeClick();
-     }
- }
-
- var onSubscribeClick = function() {
-     var formData = ezyweb.formDataToObject('subscribeForm');
-     $.ajax({
-         type: 'POST',
-         url: '/api/v1/ezycrm/subscribe',
-         contentType: 'application/json',
-         data: JSON.stringify(formData)
-     }).done(function (menu) {
-         alert(ezyweb.messages.subscribe_successfully);
-     }).fail(function (e) {
-         ezyweb.processGetApiErrors(e);
-     });
- }
-
- //================ blog list =============
- var fetchBlogList = (action) => {
-     const params = new URLSearchParams({ limit: 12 });
-     if (action === 'next') {
-         if (lastBlogPageToken.next) {
-             params.append('nextPageToken', lastBlogPageToken.next);
-         } else {
-             return;
-         }
-     }
-     $.ajax({
-         url: `/api/v1/blogs?${params.toString()}`,
-         type: 'GET',
-         dataType: 'json'
-     })
-     .done((data) => {
-         lastBlogPageToken = data.pageToken;
-         const html = buildBlogListBodyHtml(data.items || []);
-         if (action === 'next') {
-             $('#blogListBody').append(html);
-         } else {
-             $('#blogListBody').html(html);
-         }
-         if (!data?.continuation.hasNext) {
-             $('#nextButtonContainer').remove();
-         }
-     })
-     .fail((e) => {
-         ezyweb.processGetApiErrors(e);
-     });
- };
-
- const buildBlogListBodyHtml = (blogList = []) => {
-     let html = '';
-     blogList.forEach((blog) => {
-         html += buildBlogListItemHtml(blog);
-     });
-     return html;
- };
-
- const buildBlogListItemHtml = (blog) => {
-     const authorName = blog.author?.name || 'Author';
-     const readingMinutes = blog.readingMinutes ?? 3;
-
-     return `
-         <div class="blog-card">
-             <div class="blog-card-banner">
-                 ${blog.featuredImage ? `
-                     <img src="${ezyweb.extractMediaUrl(blog.featuredImage)}"
-                          alt="${blog.featuredImage.originalName || ''}"
-                          width="250"
-                          class="blog-banner-img">
-                 ` : ''}
-             </div>
-             <div class="blog-content-wrapper">
-                 <button class="blog-topic text-tiny">
-                     ${blog.category?.name || ''}
-                 </button>
-                 <h3>
-                     <a href="/blog/${blog.slug}" class="h3">
-                         ${blog.title || ''}
-                     </a>
-                 </h3>
-                 <div class="blog-text">
-                     ${blog.shortedContent || ''}
-                 </div>
-                 <div class="wrapper-flex">
-                     <div class="profile-wrapper">
-                         <img src="/images/author.png" alt="${authorName}" width="50">
-                     </div>
-                     <div class="wrapper">
-                         <a href="/author/${blog.author?.uuid || '#'}" class="h4">
-                             ${authorName}
-                         </a>
-                         <p class="text-sm">
-                             <time class="date-time-minute-string">
-                                 ${ezyweb.formatTimeStamp(blog.publishedAt)}
-                             </time>
-                             <span class="separator"></span>
-                             <ion-icon name="time-outline"></ion-icon>
-                             <time datetime="PT${readingMinutes}M">${readingMinutes} min</time>
-                         </p>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     `;
- };
-</script>
+<th:block layout:fragment="scripts" th:inline="javascript">
+    <th:block th:replace="~{fragments/scripts :: blog-list}" />
+    <th:block th:replace="~{fragments/scripts :: subscribe}" />
+</th:block>
 </body>
 </html>
