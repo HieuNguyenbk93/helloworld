@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:ezy="http://www.ezyplatform.com/thymeleaf/layout"
+        layout:decorate="~{ezytheme}">
+<head>
+    <th:block th:if="${pageFragments.get('content') != null && !#strings.isEmpty(pageFragments.get('content').additionalHead)}">
+        <ezy:block ezy:utext="${pageFragments.get('content').additionalHead}" />
+    </th:block>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <th:block th:if="${pageFragments.get('content') != null && pageFragments.get('content').content != 'content'}">
+        <div class="page-container">
+            <ezy:block ezy:utext="${pageFragments.get('content').content}" />
+        </div>
+    </th:block>
+    <th:block th:if="${pageFragments.get('content') == null || pageFragments.get('content').content == 'content'}">
+        <div class="page-container">
+            <ezy:block ezy:utext="${page.content}" />
+        </div>
+    </th:block>
+</th:block>
+<th:block layout:fragment="script">
+    <th:block th:if="${pageFragments.get('content') != null && !#strings.isEmpty(pageFragments.get('content').additionalFoot)}">
+        <ezy:block ezy:utext="${pageFragments.get('content').additionalFoot}" />
+    </th:block>
+</th:block>
+</body>
+</html>

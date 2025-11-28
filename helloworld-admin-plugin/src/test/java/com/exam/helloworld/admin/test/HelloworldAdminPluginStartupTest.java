@@ -13,7 +13,12 @@ import com.tvd12.ezyhttp.server.core.annotation.PropertiesSources;
     "com.exam.helloworld",
     "org.youngmonkeys.ezyarticle",
     "org.youngmonkeys.ezysupport",
-    "org.youngmonkeys.ezymail"
+    "org.youngmonkeys.ezymail",
+    "org.youngmonkeys.ezycrm",
+    "org.youngmonkeys.ecommerce",
+    "org.youngmonkeys.graphql",
+    "org.youngmonkeys.ezyaccount",
+    "org.youngmonkeys.ezylogin"
 })
 public class HelloworldAdminPluginStartupTest {
 

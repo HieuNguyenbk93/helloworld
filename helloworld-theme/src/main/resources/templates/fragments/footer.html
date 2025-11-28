@@ -7,9 +7,11 @@
 
         <div class="wrapper">
 
-            <a href="#" class="footer-logo">
-                <img src="/images/logo-light.svg" alt="SimpleBlog Logo" width="150" class="logo-light">
-                <img src="/images/logo-dark.svg" alt="SimpleBlog Logo" width="150" class="logo-dark">
+            <a href="/" class="footer-logo">
+                <img th:src="${siteLogoUrl != null ? siteLogoUrl : '/images/logo-light.svg'}"
+                     alt="Light Logo" width="150" class="logo-light">
+                <img th:src="${siteLogoWithoutTextUrl != null ? siteLogoWithoutTextUrl : '/images/logo-dark.svg'}"
+                     alt="Dark Logo" width="150" class="logo-dark">
             </a>
 
             <p class="footer-text">
@@ -19,21 +21,18 @@
         </div>
 
         <div class="wrapper">
-
             <p class="footer-title">Quick Links</p>
-
             <ul>
-
                 <li>
-                    <a href="#" class="footer-link">Advertise with us</a>
+                    <a href="/posts/advertise-with-us" class="footer-link">Advertise with us</a>
                 </li>
 
                 <li>
-                    <a href="#" class="footer-link">About Us</a>
+                    <a href="/about-us" class="footer-link">About Me</a>
                 </li>
 
                 <li>
-                    <a href="#" class="footer-link">Contact Us</a>
+                    <a href="/contact-us" class="footer-link">Contact Us</a>
                 </li>
 
             </ul>
@@ -47,15 +46,15 @@
             <ul>
 
                 <li>
-                    <a href="#" class="footer-link">Privacy Notice</a>
+                    <a href="/privacy-policy" class="footer-link">Privacy Notice</a>
                 </li>
 
                 <li>
-                    <a href="#" class="footer-link">Cookie Policy</a>
+                    <a href="/cookie-policy" class="footer-link">Cookie Policy</a>
                 </li>
 
                 <li>
-                    <a href="#" class="footer-link">Terms Of Use</a>
+                    <a href="/terms-of-service" class="footer-link">Terms Of Use</a>
                 </li>
 
             </ul>
